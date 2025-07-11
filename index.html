@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Christopher Belgrave | Senior Project Manager Showreel</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/lite-youtube-embed.css" />
+</head>
+<body>
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <h1>Christopher Belgrave</h1>
+        </div>
+        <div class="nav-toggle">
+          <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="active">Showreel</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="about.html#experience">Experience</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="container">
+      <h1>Showreel</h1>
+      <p>A curated collection of advertising and production work</p>
+    </div>
+  </section>
+
+  <!-- ================= FILTERS ================= -->
+  <section class="filters">
+    <div class="container">
+      <div class="filter-options">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="ad">Ad Spots</button>
+        <button class="filter-btn" data-filter="trailer">Trailers</button>
+        <button class="filter-btn" data-filter="bts">Behind the Scenes</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SHOWREEL GRID ================= -->
+  <section class="showreel" id="main-content">
+    <div class="container">
+      <div class="video-grid">
+        <!-- Video items here -->
+        <div class="video-item" data-category="ad">
+          <div class="video-container">
+            <lite-youtube videoid="M1PTVmaO6Yg" playlabel="L'Oréal Paris – Eva's Lip-Dub"></lite-youtube>
+          </div>
+          <div class="video-info">
+            <h3>L'Oréal Paris – "Eva's Lip-Dub"</h3>
+            <p class="client">L'Oréal Paris</p>
+            <p class="description">Ad spot starring Eva Longoria, AI-lip-synced to French VO using ElevenLabs. Produced by Christopher Belgrave.</p>
+          </div>
+        </div>
+        <!-- Add more video-item blocks as needed -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3>Christopher Belgrave</h3>
+          <p>Senior Project Manager / Producer in Advertising</p>
+        </div>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+          <a href="#" target="_blank" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
+          <a href="#" target="_blank" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Christopher Belgrave. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script type="module" src="js/lib/lite-youtube-embed.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
