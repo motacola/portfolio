@@ -53,6 +53,14 @@ class LiteYTEmbed extends HTMLElement {
         // TODO: In the future we could be like amp-youtube and silently swap in the iframe during idle time
         //   We'd want to only do this for in-viewport or near-viewport ones: https://github.com/ampproject/amphtml/pull/5003
         this.addEventListener('click', this.addIframe);
+
+        // Error handling for failed video loads
+        this.addEventListener('error', this.handleError.bind(this));
+    }
+
+    handleError(event) {
+        console.error('Error loading YouTube video:', event);
+        this.innerHTML = '<div class="error-message">Failed to load video. Please try again later.</div>';
     }
 
     // // TODO: Support the the user changing the [videoid] attribute
@@ -110,8 +118,21 @@ class LiteYTEmbed extends HTMLElement {
         // AFAIK, the encoding here isn't necessary for XSS, but we'll do it only because this is a URL
         // https://stackoverflow.com/q/64959723/89484
         iframeEl.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(this.videoId)}?${params.toString()}`;
+        
+        // Add loading indicator
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'loading-skeleton';
+        loadingDiv.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;';
+        this.append(loadingDiv);
+        
+        // Remove loading indicator when iframe loads
+        iframeEl.onload = () => {
+            if (loadingDiv.parentNode) {
+                loadingDiv.remove();
+            }
+        };
+        
         this.append(iframeEl);
-
         this.classList.add('lyt-activated');
 
         // Set focus for a11y

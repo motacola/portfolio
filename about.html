@@ -27,11 +27,16 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/about.css">
     
-    <!-- Added Google Fonts for Inter and Playfair Display -->
+    <!-- Google Fonts for Inter and Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha512-Tn2m0TIpgVyTzzvmxLNuqbSJH3JP8jm+Cy3hvHrW7ndTDcJ1w5mBiksqDBb8GpE2ksktFvDB/ykZ0mDpsZj20w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
 </head>
 <body>
     <!-- Skip to content link for accessibility -->
@@ -48,7 +53,7 @@
                     <span></span>
                     <span></span>
                 </div>
-                <ul class="nav-menu">
+                <ul class="nav-menu" role="navigation" aria-label="Main navigation">
                     <li><a href="index.html">Showreel</a></li>
                     <li><a href="about.html" class="active">About</a></li>
                     <li><a href="about.html#experience">Experience</a></li>
@@ -74,7 +79,7 @@
                     <p>I specialize in championing cutting-edge technologies such as AI, AR, 3D, and VFX to drive digital transformation while delivering tangible results that exceed client expectations.</p>
                     <div class="cta-buttons">
                         <a href="#experience" class="btn primary-btn">View Experience</a>
-                        <a href="Christopher_Belgrave_CV.pdf" class="btn secondary-btn download-cv-btn" download>Download CV</a>
+                        <a href="Christopher_Belgrave_CV.pdf" class="btn secondary-btn download-cv-btn" download aria-label="Download Christopher Belgrave's CV as PDF">Download CV</a>
                     </div>
                 </div>
                 <div class="profile-stats">
@@ -513,8 +518,10 @@
 
             <!-- View More Button -->
             <div class="view-more-container">
-                <button class="btn secondary-btn view-more-experience-btn">View More Experience</button>
+                <button class="btn secondary-btn view-more-experience-btn" aria-expanded="false" aria-controls="hidden-experience">View More Experience</button>
             </div>
+        </div>
+    </section>
 
     <section class="clients-section">
         <div class="container">
@@ -601,9 +608,7 @@
                     <p>Senior Project Manager / Producer in Advertising</p>
                 </div>
                 <div class="social-links">
-                    <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
-                    {/* <a href="#" target="_blank" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a> */}
-                    {/* <a href="#" target="_blank" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a> */}
+                    <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div class="copyright">
