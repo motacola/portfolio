@@ -1,0 +1,5 @@
+.download-cv-btn {
+  background-color: var(--accent-color) !important;
+  color: #fff !important;
+  border-color: var(--accent-color) !important;
+}
