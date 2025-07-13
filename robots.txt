@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://lvycsuwu.manus.space/sitemap.xml
+Sitemap: https://chrisbelgrave.com/sitemap.xml
 
 # Disallow sensitive files
 Disallow: /css/
