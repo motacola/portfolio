@@ -103,6 +103,17 @@ lite-youtube.lyt-activated > .lty-playbtn {
     lite-youtube > .lty-playbtn {
         transition: none !important;
     }
+
+    lite-youtube:hover > .lty-playbtn {
+        transform: translate3d(-50%, -50%, 0) !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    lite-youtube::before,
+    lite-youtube > .lty-playbtn {
+        transition: none !important;
+    }
     
     lite-youtube:hover > .lty-playbtn {
         transform: translate3d(-50%, -50%, 0) !important;
