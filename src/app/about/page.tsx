@@ -12,7 +12,8 @@ const AboutPage = () => {
           <p>Senior Project Manager / Producer in Advertising</p>
         </div>
       </section>
-      <main className="about-intro" id="main">
+    <main>
+      <section className="about-intro" id="main">
         <div className="container">
           <div className="profile-container">
             <div className="profile-content">
@@ -226,6 +227,7 @@ const AboutPage = () => {
             </div>
         </div>
     </section>
+    </main>
     </>
   );
 };
