@@ -35,7 +35,6 @@ const ContactPage = () => {
           <p>Let's discuss your next project</p>
         </div>
       </section>
-
       <main className="contact-section" id="main">
         <div className="container">
           <div className="contact-container">
