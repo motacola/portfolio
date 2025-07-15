@@ -35,6 +35,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ videoId, title, client, descripti
             className="video-poster"
             width={1280}
             height={720}
+            unoptimized
           />
         )}
       </div>

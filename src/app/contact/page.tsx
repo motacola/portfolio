@@ -48,6 +48,7 @@ const ContactPage = () => {
                     className="profile-image"
                     width={180}
                     height={180}
+                  unoptimized
                   />
                 </div>
                 <h2>Get In Touch</h2>
