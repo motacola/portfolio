@@ -11,7 +11,6 @@ const AboutPage = () => {
           <h1>About Me</h1>
           <p>Senior Project Manager / Producer in Advertising</p>
         </div>
-      </section>
       <main className="about-intro" id="main">
         <div className="container">
           <div className="profile-container">
