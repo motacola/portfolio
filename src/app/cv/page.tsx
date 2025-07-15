@@ -43,8 +43,8 @@ const CVPage = () => {
           <div className="date">Oct 2011 - May 2023</div>
           <ul>
             <li>Produced and project managed dynamic HTML5 rich media banners/email campaigns for agencies including Bossa NYC, AMV BBDO, Hogarth WW, BBH, Digitas LBi</li>
-            <li>Managed high profile client campaigns for Apple, Sainsbury's, Galaxy Chocolate, BT, Emirates, British Airways, L'Oreal, and Vauxhall</li>
-            <li>Led website redesign, CMS and build for gacaribbean.com, uk.mixa.com for L'Oreal &amp; SUV car configurator visualiser for Vauxhall</li>
+            <li>Managed high profile client campaigns for Apple, Sainsbury&apos;s, Galaxy Chocolate, BT, Emirates, British Airways, L&apos;Oreal, and Vauxhall</li>
+            <li>Led website redesign, CMS and build for gacaribbean.com, uk.mixa.com for L&apos;Oreal &amp; SUV car configurator visualiser for Vauxhall</li>
           </ul>
         </div>
         <div className="cv-experience">
@@ -52,7 +52,7 @@ const CVPage = () => {
           <h4>WPP · Freelance</h4>
           <div className="date">Dec 2021 - Oct 2022</div>
           <ul>
-            <li>Led end-to-end project management for global campaigns across The Coca-Cola Company's portfolio</li>
+            <li>Led end-to-end project management for global campaigns across The Coca-Cola Company&apos;s portfolio</li>
             <li>Coordinated seamless creative delivery by facilitating collaboration across multiple WPP-owned agencies</li>
           </ul>
         </div>
@@ -114,7 +114,7 @@ const CVPage = () => {
           <strong>Technology &amp; Media:</strong> Microsoft/Skype, BBC, UKTV, BT, Mitsubishi, Roli
         </p>
         <p>
-          <strong>Consumer Goods:</strong> L'Oréal/Maybelline, Coca-Cola, Unilever, Halifax Bank, Virgin Media, Emirates
+          <strong>Consumer Goods:</strong> L&apos;Oréal/Maybelline, Coca-Cola, Unilever, Halifax Bank, Virgin Media, Emirates
         </p>
       </div>
     </div>

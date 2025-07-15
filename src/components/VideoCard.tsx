@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 interface VideoCardProps {
   videoId: string;
@@ -28,11 +29,12 @@ const VideoCard: React.FC<VideoCardProps> = ({ videoId, title, client, descripti
             allowFullScreen
           ></iframe>
         ) : (
-          <img
+          <Image
             src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
             alt={title}
-            loading="lazy"
             className="video-poster"
+            width={1280}
+            height={720}
           />
         )}
       </div>
