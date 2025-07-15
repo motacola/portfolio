@@ -30,7 +30,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/about#experience" className={pathname === '/about#experience' ? 'active' : ''}>
+              <Link href="/about#experience">
                 Experience
               </Link>
             </li>
