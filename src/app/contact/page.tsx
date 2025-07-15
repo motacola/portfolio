@@ -35,7 +35,8 @@ const ContactPage = () => {
           <p>Let's discuss your next project</p>
         </div>
       </section>
-      <main className="contact-section" id="main">
+    <main>
+      <section className="contact-section" id="main">
         <div className="container">
           <div className="contact-container">
             <div className="contact-info">
@@ -175,6 +176,7 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
+    </main>
     </>
   );
 };
