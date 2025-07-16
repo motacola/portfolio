@@ -2,9 +2,15 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 const Navbar = () => {
   const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <header>
@@ -13,12 +19,12 @@ const Navbar = () => {
           <div className="logo">
             <h1>Christopher Belgrave</h1>
           </div>
-          <div className="nav-toggle">
+          <div className={`nav-toggle ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
             <span></span>
             <span></span>
             <span></span>
           </div>
-          <ul className="nav-menu" role="navigation" aria-label="Main navigation">
+          <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`} role="navigation" aria-label="Main navigation">
             <li>
               <Link href="/" className={pathname === '/' ? 'active' : ''}>
                 Showreel
