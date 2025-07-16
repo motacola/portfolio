@@ -15,7 +15,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ date, title, company, child
       <div className="timeline-date">{date}</div>
       <h3>{title}</h3>
       {company && <h4>{company}</h4>}
-      {children}
+      <div className="timeline-body">{children}</div>
     </div>
   </div>
 );
