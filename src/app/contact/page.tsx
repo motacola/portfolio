@@ -9,17 +9,24 @@ const ContactPage = () => {
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [status, setStatus] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await fetch('/api/contact', {
+    const response = await fetch('/api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ name, email, subject, message }),
     });
+
+    if (response.ok) {
+      setStatus('Thank you for your message!');
+    } else {
+      setStatus('Sorry, something went wrong.');
+    }
 
     // Reset form fields
     setName('');
@@ -157,6 +164,7 @@ const ContactPage = () => {
                   <button type="submit" className="btn primary-btn form-submit-btn">
                     Send Message
                   </button>
+                  {status && <p className="form-status">{status}</p>}
                 </form>
               </div>
             </div>
