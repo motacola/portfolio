@@ -40,9 +40,9 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/about.html#experience">
+              <a href="/about.html#experience">
                 Experience
-              </Link>
+              </a>
             </li>
             <li>
               <Link href="/contact" className={pathname === '/contact' ? 'active' : ''}>
