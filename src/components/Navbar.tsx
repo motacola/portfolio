@@ -40,23 +40,9 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
--             <li>
-- <<<<<<< ub7qxg-codex/review-website-code-for-errors
--               <a href="/about.html#experience">
-- =======
--               <Link href="/about#experience">
-- >>>>>>> main
--                 Experience
--               </a>
--             </li>
-
-+             <li>
-+               <Link href="/about#experience">
-+                 Experience
-+               </Link>
-+             </li>
+              <Link href="/about#experience">
                 Experience
-              </a>
+              </Link>
             </li>
             <li>
               <Link href="/contact" className={pathname === '/contact' ? 'active' : ''}>
