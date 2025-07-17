@@ -27,8 +27,8 @@ const AboutPage = () => {
                   <a href="#experience" className="btn primary-btn">
                     See full experience
                   </a>
-                  <a href="/Christopher_Belgrave_CV.pdf" className="btn secondary-btn download-cv-btn" download>
-                    Download CV
+                  <a href="/cv" className="btn secondary-btn download-cv-btn">
+                    View CV
                   </a>
                 </div>
               </div>
