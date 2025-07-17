@@ -33,6 +33,4 @@ messages.json
 
 # production
 /build
-out/          
 # build output
-out/
