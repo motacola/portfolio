@@ -1,31 +1,61 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import './contact.css';
+
+const encode = (data: Record<string, string>) =>
+  Object.entries(data)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join('&');
 
 const ContactPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const formDisabled = useMemo(
+    () => !name.trim() || !email.trim() || !subject.trim() || !message.trim(),
+    [name, email, subject, message],
+  );
 
-    await fetch('/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, subject, message }),
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formName = form.getAttribute('name') ?? 'contact';
+    const payload = encode({
+      'form-name': formName,
+      name,
+      email,
+      subject,
+      message,
     });
 
-    // Reset form fields
-    setName('');
-    setEmail('');
-    setSubject('');
-    setMessage('');
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: payload,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Form submission failed with status ${response.status}`);
+      }
+
+      setStatus('success');
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
+    } catch (error) {
+      console.error('Error submitting contact form', error);
+      setStatus('error');
+    }
   };
 
   return (
@@ -107,7 +137,21 @@ const ContactPage = () => {
               </div>
               <div className="contact-form">
                 <h2>Send Me a Message</h2>
-                <form id="contactForm" noValidate onSubmit={handleSubmit}>
+                <form
+                  id="contactForm"
+                  name="contact"
+                  data-netlify="true"
+                  netlify-honeypot="bot-field"
+                  noValidate
+                  onSubmit={handleSubmit}
+                >
+                  <input type="hidden" name="form-name" value="contact" />
+                  <p className="visually-hidden">
+                    <label>
+                      Don&apos;t fill this out if you&apos;re human:
+                      <input name="bot-field" autoComplete="off" onChange={() => {}} />
+                    </label>
+                  </p>
                   <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <input
@@ -154,9 +198,13 @@ const ContactPage = () => {
                       onChange={(e) => setMessage(e.target.value)}
                     ></textarea>
                   </div>
-                  <button type="submit" className="btn primary-btn form-submit-btn">
+                  <button type="submit" className="btn primary-btn form-submit-btn" disabled={formDisabled}>
                     Send Message
                   </button>
+                  <p className="form-status" role="status" aria-live="polite">
+                    {status === 'success' && 'Thank you for your message!'}
+                    {status === 'error' && 'Sorry, something went wrong. Please try again.'}
+                  </p>
                 </form>
               </div>
             </div>
