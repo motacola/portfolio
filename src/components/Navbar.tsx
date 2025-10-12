@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -40,9 +41,15 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/about.html#experience">
+              <a
+                href="/about.html#experience"
+                onClick={(event) => {
+                  event.preventDefault();
+                  router.push('/about#experience');
+                }}
+              >
                 Experience
-              </Link>
+              </a>
             </li>
             <li>
               <Link href="/contact" className={pathname === '/contact' ? 'active' : ''}>

@@ -1,17 +1,7 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import type { ReactNode } from 'react';
 import './globals.css';
 import Layout from '@/components/Layout';
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-});
-
-const playfairDisplay = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair-display',
-});
 
 export const metadata: Metadata = {
   title: 'Christopher Belgrave | Senior Project Manager Showreel',
@@ -21,11 +11,11 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${playfairDisplay.variable}`}>
+      <body>
         <Layout>{children}</Layout>
       </body>
     </html>
