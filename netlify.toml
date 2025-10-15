@@ -1,0 +1,11 @@
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[[plugins]]
+  package = "netlify-plugin-checklinks"
+  [plugins.inputs]
+    skipPatterns = ["https://fonts.googleapis.com", "https://fonts.gstatic.com"]
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
