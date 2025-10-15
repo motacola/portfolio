@@ -20,25 +20,34 @@ const VideoCard: React.FC<VideoCardProps> = ({ videoId, title, client, descripti
 
   return (
     <div className="video-item" data-category={category}>
-      <div className="video-container" onClick={handleClick}>
-        {isPlaying ? (
+      {isPlaying ? (
+        <div className="video-container" role="region" aria-label={`${title} video player`}>
           <iframe
             src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+            title={title}
             frameBorder="0"
             allow="autoplay; encrypted-media"
             allowFullScreen
+            loading="lazy"
           ></iframe>
-        ) : (
+        </div>
+      ) : (
+        <button
+          type="button"
+          className="video-container video-trigger"
+          onClick={handleClick}
+          aria-label={`Play ${title}`}
+        >
           <Image
             src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
-            alt={title}
+            alt={`${title} video thumbnail`}
             className="video-poster"
             width={1280}
             height={720}
             unoptimized
           />
-        )}
-      </div>
+        </button>
+      )}
       <div className="video-info">
         <h3>{title}</h3>
         <p className="client">{client}</p>

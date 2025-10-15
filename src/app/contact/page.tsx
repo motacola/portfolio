@@ -1,31 +1,80 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import './contact.css';
+
+const encode = (data: Record<string, string>) =>
+  Object.entries(data)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join('&');
 
 const ContactPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [botField, setBotField] = useState('');
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const formDisabled =
+    isSubmitting || !name.trim() || !email.trim() || !subject.trim() || !message.trim();
 
-    await fetch('/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, subject, message }),
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    if (botField.trim()) {
+      form.reset();
+      setBotField('');
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
+      setStatus('success');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus('idle');
+
+    const formName = form.getAttribute('name') ?? 'contact';
+    const payload = encode({
+      'form-name': formName,
+      name,
+      email,
+      subject,
+      message,
+      'bot-field': botField,
     });
 
-    // Reset form fields
-    setName('');
-    setEmail('');
-    setSubject('');
-    setMessage('');
+    try {
+      const action = form.getAttribute('action') || '/';
+
+      const response = await fetch(action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: payload,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Form submission failed with status ${response.status}`);
+      }
+
+      setStatus('success');
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
+      setBotField('');
+    } catch (error) {
+      console.error('Error submitting contact form', error);
+      setStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -42,14 +91,9 @@ const ContactPage = () => {
             <div className="contact-container">
               <div className="contact-info">
                 <div className="profile-image-container">
-                  <Image
-                    src="https://media.licdn.com/dms/image/v2/D4E35AQESDx-L7JXI8Q/profile-framedphoto-shrink_200_200/B4EZcxZIiPHYAc-/0/1748880361900?e=1753048800&v=beta&t=mWnQcPrPyoB5lnIC3VCl6j1zIX-vNDKeiY7cgLiJFo0"
-                    alt="Christopher Belgrave, Senior Project Manager"
-                    className="profile-image"
-                    width={180}
-                    height={180}
-                  unoptimized
-                  />
+                  <div className="profile-avatar" role="img" aria-label="Portrait of Christopher Belgrave">
+                    <span aria-hidden="true">CB</span>
+                  </div>
                 </div>
                 <h2>Get In Touch</h2>
                 <p>
@@ -93,21 +137,49 @@ const ContactPage = () => {
                   <div className="info-content">
                     <h3>LinkedIn</h3>
                     <p>
-                      <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener">
+                      <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener noreferrer">
                         linkedin.com/in/chrisbelgrave
                       </a>
                     </p>
                   </div>
                 </div>
                 <div className="social-links-large">
-                  <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener" className="social-link" aria-label="LinkedIn Profile">
+                  <a
+                    href="https://www.linkedin.com/in/chrisbelgrave/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-link"
+                    aria-label="LinkedIn Profile"
+                  >
                     <i className="fab fa-linkedin" aria-hidden="true"></i>
                   </a>
                 </div>
               </div>
               <div className="contact-form">
                 <h2>Send Me a Message</h2>
-                <form id="contactForm" noValidate onSubmit={handleSubmit}>
+                <form
+                  id="contactForm"
+                  name="contact"
+                  method="POST"
+                  action="/"
+                  acceptCharset="UTF-8"
+                  data-netlify="true"
+                  data-netlify-honeypot="bot-field"
+                  noValidate
+                  onSubmit={handleSubmit}
+                >
+                  <input type="hidden" name="form-name" value="contact" />
+                  <p className="visually-hidden">
+                    <label>
+                      Don&apos;t fill this out if you&apos;re human:
+                      <input
+                        name="bot-field"
+                        autoComplete="off"
+                        value={botField}
+                        onChange={(event) => setBotField(event.target.value)}
+                      />
+                    </label>
+                  </p>
                   <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <input
@@ -154,9 +226,18 @@ const ContactPage = () => {
                       onChange={(e) => setMessage(e.target.value)}
                     ></textarea>
                   </div>
-                  <button type="submit" className="btn primary-btn form-submit-btn">
-                    Send Message
+                  <button
+                    type="submit"
+                    className="btn primary-btn form-submit-btn"
+                    disabled={formDisabled}
+                    aria-busy={isSubmitting}
+                  >
+                    {isSubmitting ? 'Sending…' : 'Send Message'}
                   </button>
+                  <p className="form-status" role="status" aria-live="polite">
+                    {status === 'success' && 'Thank you for your message!'}
+                    {status === 'error' && 'Sorry, something went wrong. Please try again.'}
+                  </p>
                 </form>
               </div>
             </div>

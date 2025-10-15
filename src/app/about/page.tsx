@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { Timeline, TimelineItem } from '@/components/Timeline';
 import './about.css';
 
@@ -27,9 +28,9 @@ const AboutPage = () => {
                   <a href="#experience" className="btn primary-btn">
                     See full experience
                   </a>
-                  <a href="/Christopher_Belgrave_CV.pdf" className="btn secondary-btn download-cv-btn" download>
-                    Download CV
-                  </a>
+                  <Link href="/cv" className="btn secondary-btn download-cv-btn">
+                    View CV
+                  </Link>
                 </div>
               </div>
               <div className="profile-stats">
@@ -96,9 +97,9 @@ const AboutPage = () => {
             </div>
           </div>
         </section>
-        <section id="experience" className="experience-section">
+        <section id="experience" className="experience-section" tabIndex={-1} aria-labelledby="experience-heading">
           <div className="container">
-            <h2>Professional Experience</h2>
+            <h2 id="experience-heading">Professional Experience</h2>
             <Timeline>
               <TimelineItem date="May 2023 – Nov 2023" title="Senior Project Manager EMEA">
                 <p>
