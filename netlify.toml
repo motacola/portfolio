@@ -5,6 +5,11 @@
   # No build command needed for static HTML
   publish = "."
 
+# Disable plugins that are causing build failures
+# These are configured in Netlify UI and need to be disabled there
+[build.environment]
+  NODE_VERSION = "18"
+
 # Redirect rules
 [[redirects]]
   from = "/showreel"
