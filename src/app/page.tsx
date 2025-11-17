@@ -48,10 +48,21 @@ const videos = [
   },
 ];
 
+const filterOptions = [
+  { value: 'all', label: 'All Projects' },
+  { value: 'ad', label: 'Ad Spots' },
+  { value: 'trailer', label: 'Trailers' },
+  { value: 'bts', label: 'Behind the Scenes' },
+];
+
 const ShowreelPage = () => {
   const [filter, setFilter] = useState('all');
 
   const filteredVideos = filter === 'all' ? videos : videos.filter((video) => video.category === filter);
+  const filterStatus =
+    filter === 'all'
+      ? 'Showing all featured work'
+      : `Showing ${filterOptions.find((option) => option.value === filter)?.label ?? 'selected projects'}`;
 
   return (
     <>
@@ -63,20 +74,22 @@ const ShowreelPage = () => {
       </section>
       <section className="filters">
         <div className="container">
-          <div className="filter-options">
-            <button type="button" className={`filter-btn ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>
-              All Projects
-            </button>
-            <button type="button" className={`filter-btn ${filter === 'ad' ? 'active' : ''}`} onClick={() => setFilter('ad')}>
-              Ad Spots
-            </button>
-            <button type="button" className={`filter-btn ${filter === 'trailer' ? 'active' : ''}`} onClick={() => setFilter('trailer')}>
-              Trailers
-            </button>
-            <button type="button" className={`filter-btn ${filter === 'bts' ? 'active' : ''}`} onClick={() => setFilter('bts')}>
-              Behind the Scenes
-            </button>
+          <div className="filter-options" role="toolbar" aria-label="Filter projects">
+            {filterOptions.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                className={`filter-btn ${filter === option.value ? 'active' : ''}`}
+                aria-pressed={filter === option.value}
+                onClick={() => setFilter(option.value)}
+              >
+                {option.label}
+              </button>
+            ))}
           </div>
+          <p className="project-tabs__status" role="status" aria-live="polite">
+            {filterStatus}
+          </p>
         </div>
       </section>
       <main className="showreel" id="main">

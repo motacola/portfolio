@@ -14,26 +14,30 @@ const ContactPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setStatus('Sending…');
 
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, subject, message }),
-    });
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
 
-    if (response.ok) {
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
       setStatus('Thank you for your message!');
-    } else {
-      setStatus('Sorry, something went wrong.');
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
+    } catch (error) {
+      console.error('Contact submission failed', error);
+      setStatus('Sorry, something went wrong. Please try again.');
     }
-
-    // Reset form fields
-    setName('');
-    setEmail('');
-    setSubject('');
-    setMessage('');
   };
 
   return (
