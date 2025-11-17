@@ -5,3 +5,8 @@
 img,iframe{aspect-ratio:16/9;object-fit:cover}
 
 .project-tabs__status{margin-top:1rem;text-align:center;color:var(--gray-color);font-size:var(--fs-300)}
+body.menu-open{overflow:hidden}
+.nav-toggle{background:transparent;border:none;padding:0;cursor:pointer}
+.nav-toggle:focus-visible{outline:2px solid var(--focus-color);outline-offset:4px}
+.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:900;opacity:0;pointer-events:none;transition:opacity var(--transition)}
+.nav-overlay.active{opacity:1;pointer-events:auto}
