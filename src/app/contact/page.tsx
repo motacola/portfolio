@@ -190,3 +190,6 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
+                <svg aria-hidden="true" style={{ display: 'none' }}>
+                  <use href="/icons.svg#icon-email" />
+                </svg>
