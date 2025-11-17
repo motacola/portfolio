@@ -168,7 +168,7 @@
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-playfair, 'Playfair Display'), serif;
 }
 
 .stat-label {

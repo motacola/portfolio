@@ -14,16 +14,31 @@ interface VideoCardProps {
 const VideoCard: React.FC<VideoCardProps> = ({ videoId, title, client, description, category }) => {
   const [isPlaying, setIsPlaying] = React.useState(false);
 
-  const handleClick = () => {
+  const handleActivate = () => {
     setIsPlaying(true);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleActivate();
+    }
   };
 
   return (
     <div className="video-item" data-category={category}>
-      <div className="video-container" onClick={handleClick}>
+      <div
+        className="video-container"
+        role="button"
+        tabIndex={0}
+        aria-label={`Play ${title} video`}
+        onClick={handleActivate}
+        onKeyDown={handleKeyDown}
+      >
         {isPlaying ? (
           <iframe
             src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+            title={`${title} video player`}
             frameBorder="0"
             allow="autoplay; encrypted-media"
             allowFullScreen

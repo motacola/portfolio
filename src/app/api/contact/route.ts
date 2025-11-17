@@ -23,7 +23,11 @@ export async function POST(request: Request) {
   }
 
   messages.push(submission);
-  await fs.writeFile(filePath, JSON.stringify(messages, null, 2));
+  try {
+    await fs.writeFile(filePath, JSON.stringify(messages, null, 2));
+  } catch (error) {
+    console.error('Unable to persist contact submission', error);
+  }
 
   return NextResponse.json({ message: 'Form submitted successfully' });
 }

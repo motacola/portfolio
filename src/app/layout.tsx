@@ -1,35 +1,21 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Layout from '@/components/Layout';
+import { Inter, Playfair_Display } from 'next/font/google';
 
 export const metadata: Metadata = {
   title: 'Christopher Belgrave | Senior Project Manager Showreel',
-  description: "Christopher Belgrave's professional showreel featuring advertising campaigns, AR experiences, and digital production work for major brands including L'Oréal, Maybelline, and Coca-Cola.",
+  description:
+    "Christopher Belgrave's professional showreel featuring advertising campaigns, AR experiences, and digital production work for major brands including L'Oréal, Maybelline, and Coca-Cola.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-<head>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossOrigin="anonymous"
-  />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400..900&display=swap"
-    rel="stylesheet"
-  />
-</head>
-      </head>
-      <body>
+      <body className={`${inter.variable} ${playfair.variable}`}>
         <Layout>{children}</Layout>
       </body>
     </html>

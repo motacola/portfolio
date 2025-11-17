@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import './contact.css';
+import Icon from '@/components/Icon';
 
 const ContactPage = () => {
   const [name, setName] = useState('');
@@ -63,8 +64,8 @@ const ContactPage = () => {
                   I&apos;m always interested in hearing about new projects and opportunities. Whether you have a question about my work or want to discuss a potential collaboration, feel free to reach out.
                 </p>
                 <div className="info-item">
-                  <div className="info-icon">
-                    <i className="fas fa-envelope" aria-hidden="true"></i>
+                  <div className="info-icon" aria-hidden="true">
+                    <Icon name="email" className="info-icon__symbol" />
                   </div>
                   <div className="info-content">
                     <h3>Email</h3>
@@ -74,8 +75,8 @@ const ContactPage = () => {
                   </div>
                 </div>
                 <div className="info-item">
-                  <div className="info-icon">
-                    <i className="fas fa-phone" aria-hidden="true"></i>
+                  <div className="info-icon" aria-hidden="true">
+                    <Icon name="phone" className="info-icon__symbol" />
                   </div>
                   <div className="info-content">
                     <h3>Phone</h3>
@@ -85,8 +86,8 @@ const ContactPage = () => {
                   </div>
                 </div>
                 <div className="info-item">
-                  <div className="info-icon">
-                    <i className="fas fa-map-marker-alt" aria-hidden="true"></i>
+                  <div className="info-icon" aria-hidden="true">
+                    <Icon name="location" className="info-icon__symbol" />
                   </div>
                   <div className="info-content">
                     <h3>Location</h3>
@@ -94,8 +95,8 @@ const ContactPage = () => {
                   </div>
                 </div>
                 <div className="info-item">
-                  <div className="info-icon">
-                    <i className="fab fa-linkedin" aria-hidden="true"></i>
+                  <div className="info-icon" aria-hidden="true">
+                    <Icon name="linkedin" className="info-icon__symbol" />
                   </div>
                   <div className="info-content">
                     <h3>LinkedIn</h3>
@@ -108,7 +109,7 @@ const ContactPage = () => {
                 </div>
                 <div className="social-links-large">
                   <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener" className="social-link" aria-label="LinkedIn Profile">
-                    <i className="fab fa-linkedin" aria-hidden="true"></i>
+                    <Icon name="linkedin" className="info-icon__symbol" />
                   </a>
                 </div>
               </div>
@@ -190,6 +191,3 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
-                <svg aria-hidden="true" style={{ display: 'none' }}>
-                  <use href="/icons.svg#icon-email" />
-                </svg>
