@@ -5,6 +5,8 @@ import Image from 'next/image';
 import './contact.css';
 import Icon from '@/components/Icon';
 
+const PROFILE_IMAGE = 'https://media.licdn.com/dms/image/v2/D4E35AQESDx-L7JXI8Q/profile-framedphoto-shrink_200_200/B4EZcxZIiPHYAc-/0/1748880361900?e=1753048800&v=beta&t=mWnQcPrPyoB5lnIC3VCl6j1zIX-vNDKeiY7cgLiJFo0';
+
 const ContactPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -61,7 +63,7 @@ const ContactPage = () => {
               <div className="contact-info">
                 <div className="profile-image-container">
                   <Image
-                    src="/profile.jpg"
+                    src={PROFILE_IMAGE}
                     alt="Christopher Belgrave, Senior Project Manager"
                     className="profile-image"
                     width={180}
