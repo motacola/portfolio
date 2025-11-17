@@ -10,3 +10,5 @@ body.menu-open{overflow:hidden}
 .nav-toggle:focus-visible{outline:2px solid var(--focus-color);outline-offset:4px}
 .nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:900;opacity:0;pointer-events:none;transition:opacity var(--transition)}
 .nav-overlay.active{opacity:1;pointer-events:auto}
+
+[id] {scroll-margin-top: clamp(5rem, 8vw, 7rem);}

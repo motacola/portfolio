@@ -11,9 +11,13 @@ const ContactPage = () => {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
     setStatus('Sending…');
 
     try {
@@ -37,6 +41,8 @@ const ContactPage = () => {
     } catch (error) {
       console.error('Contact submission failed', error);
       setStatus('Sorry, something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -166,10 +172,14 @@ const ContactPage = () => {
                       onChange={(e) => setMessage(e.target.value)}
                     ></textarea>
                   </div>
-                  <button type="submit" className="btn primary-btn form-submit-btn">
-                    Send Message
+                  <button type="submit" className="btn primary-btn form-submit-btn" disabled={isSubmitting}>
+                    {isSubmitting ? 'Sending…' : 'Send Message'}
                   </button>
-                  {status && <p className="form-status">{status}</p>}
+                  {status && (
+                    <p className="form-status" role="status" aria-live="polite">
+                      {status}
+                    </p>
+                  )}
                 </form>
               </div>
             </div>
