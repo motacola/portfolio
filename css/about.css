@@ -516,6 +516,26 @@
     line-height: 1.6;
 }
 
+/* Scroll reveal support: only hide elements when enhancements are active */
+body.supports-reveal .achievement-item,
+body.supports-reveal .client-category,
+body.supports-reveal .skill-category,
+body.supports-reveal .timeline-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+        opacity 0.5s ease-out,
+        transform 0.5s ease-out;
+}
+
+body.supports-reveal .achievement-item.is-visible,
+body.supports-reveal .client-category.is-visible,
+body.supports-reveal .skill-category.is-visible,
+body.supports-reveal .timeline-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* CTA Section */
 .cta-section {
     padding: 5rem 0;
