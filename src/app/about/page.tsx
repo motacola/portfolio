@@ -1,8 +1,59 @@
-import React from 'react';
+"use client";
+
+import React, { useEffect } from 'react';
 import { Timeline, TimelineItem } from '@/components/Timeline';
 import './about.css';
 
+const MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+const REVEAL_SELECTOR = '.skill-category, .timeline-item, .client-category, .achievement-item';
+
+const useRevealAnimations = () => {
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const targets = document.querySelectorAll(REVEAL_SELECTOR);
+    if (!targets.length) {
+      return;
+    }
+
+    const prefersReducedMotion =
+      typeof window !== 'undefined' && 'matchMedia' in window
+        ? window.matchMedia(MOTION_QUERY).matches
+        : false;
+
+    const canAnimate = !prefersReducedMotion && 'IntersectionObserver' in window;
+
+    if (!canAnimate) {
+      targets.forEach((element) => element.classList.add('is-visible'));
+      return;
+    }
+
+    document.body.classList.add('supports-reveal');
+
+    const observer = new IntersectionObserver(
+      (entries, intersectionObserver) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            intersectionObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    targets.forEach((element) => observer.observe(element));
+
+    return () => {
+      observer.disconnect();
+      document.body.classList.remove('supports-reveal');
+    };
+  }, []);
+};
+
 const AboutPage = () => {
+  useRevealAnimations();
+
   return (
     <>
       <section className="hero about-hero">
