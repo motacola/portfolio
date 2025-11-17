@@ -50,12 +50,12 @@ const ContactPage = () => {
               <div className="contact-info">
                 <div className="profile-image-container">
                   <Image
-                    src="https://media.licdn.com/dms/image/v2/D4E35AQESDx-L7JXI8Q/profile-framedphoto-shrink_200_200/B4EZcxZIiPHYAc-/0/1748880361900?e=1753048800&v=beta&t=mWnQcPrPyoB5lnIC3VCl6j1zIX-vNDKeiY7cgLiJFo0"
+                    src="/profile.jpg"
                     alt="Christopher Belgrave, Senior Project Manager"
                     className="profile-image"
                     width={180}
                     height={180}
-                  unoptimized
+                    priority
                   />
                 </div>
                 <h2>Get In Touch</h2>
