@@ -1,5 +1,13 @@
 interface IconProps {
-  name: 'email' | 'phone' | 'location' | 'linkedin';
+  name:
+    | 'email'
+    | 'phone'
+    | 'location'
+    | 'linkedin'
+    | 'achievement-ar'
+    | 'achievement-ai'
+    | 'achievement-team'
+    | 'achievement-world';
   title?: string;
   className?: string;
 }

@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { Timeline, TimelineItem } from '@/components/Timeline';
+import Icon from '@/components/Icon';
 import './about.css';
 
 const MOTION_QUERY = '(prefers-reduced-motion: reduce)';
@@ -248,28 +249,28 @@ const AboutPage = () => {
             <div className="achievements-grid">
               <div className="achievement-item">
                 <div className="achievement-icon">
-                  <i className="fas fa-vr-cardboard"></i>
+                  <Icon name="achievement-ar" className="achievement-icon__symbol" title="AR" />
                 </div>
                 <h3>AR Gaming Innovation</h3>
                 <p>Led the development of Maybelline&apos;s ChromaVerse AR game, setting new standards for interactive brand experiences in the beauty industry.</p>
               </div>
               <div className="achievement-item">
                 <div className="achievement-icon">
-                  <i className="fas fa-robot"></i>
+                  <Icon name="achievement-ai" className="achievement-icon__symbol" title="AI" />
                 </div>
                 <h3>AI Implementation</h3>
                 <p>Pioneered AI workflow automation strategies that reduced production time by 40% while maintaining creative quality standards.</p>
               </div>
               <div className="achievement-item">
                 <div className="achievement-icon">
-                  <i className="fas fa-users"></i>
+                  <Icon name="achievement-team" className="achievement-icon__symbol" title="Team" />
                 </div>
                 <h3>Team Leadership</h3>
                 <p>Established and managed offshore production teams, creating efficient workflows that saved clients over £500K annually.</p>
               </div>
               <div className="achievement-item">
                 <div className="achievement-icon">
-                  <i className="fas fa-globe"></i>
+                  <Icon name="achievement-world" className="achievement-icon__symbol" title="World" />
                 </div>
                 <h3>Global Campaign Management</h3>
                 <p>Successfully delivered multi-market campaigns for Coca-Cola brands across 20+ countries, ensuring consistent brand messaging and local relevance.</p>
