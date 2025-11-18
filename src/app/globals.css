@@ -491,6 +491,7 @@ nav {
   transform: translateY(100%);
   transition: var(--transition);
   border-top: 1px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
 }
 
 .video-item:hover .video-info {

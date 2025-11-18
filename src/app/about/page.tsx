@@ -1,12 +1,100 @@
-"use client";
+'use client';
 
 import React, { useEffect } from 'react';
+import Image from 'next/image';
 import { Timeline, TimelineItem, TimelineDecade } from '@/components/Timeline';
 import Icon from '@/components/Icon';
 import './about.css';
 
 const MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 const REVEAL_SELECTOR = '.skill-category, .timeline-item, .client-category, .achievement-item';
+
+type ClientEntry = {
+  name: string;
+  timelineId: string;
+  logoDomain: string;
+};
+
+type ClientCategory = {
+  title: string;
+  clients: ClientEntry[];
+};
+
+const clientCategories: ClientCategory[] = [
+  {
+    title: 'Luxury & Beauty',
+    clients: [
+      { name: "L'Oréal", timelineId: 'experience-craft', logoDomain: 'loreal.com' },
+      { name: 'Maybelline', timelineId: 'experience-craft', logoDomain: 'maybelline.com' },
+      { name: 'Dolce & Gabbana', timelineId: 'experience-hires', logoDomain: 'dolcegabbana.com' },
+      { name: 'Burberry', timelineId: 'experience-burberry', logoDomain: 'burberry.com' },
+      { name: 'Jimmy Choo', timelineId: 'experience-jimmy-choo', logoDomain: 'jimmychoo.com' },
+      { name: 'Diesel', timelineId: 'experience-meri', logoDomain: 'diesel.com' },
+      { name: 'Dunhill', timelineId: 'experience-meri', logoDomain: 'dunhill.com' },
+      { name: 'Patek Philippe', timelineId: 'experience-leagas', logoDomain: 'patek.com' },
+    ],
+  },
+  {
+    title: 'Technology & Media',
+    clients: [
+      { name: 'Microsoft', timelineId: 'experience-skype', logoDomain: 'microsoft.com' },
+      { name: 'Skype', timelineId: 'experience-skype', logoDomain: 'skype.com' },
+      { name: 'Apple', timelineId: 'experience-belgrave', logoDomain: 'apple.com' },
+      { name: 'BBC', timelineId: 'experience-red-bee', logoDomain: 'bbc.com' },
+      { name: 'UKTV', timelineId: 'experience-red-bee', logoDomain: 'uktv.co.uk' },
+      { name: 'BT', timelineId: 'experience-belgrave', logoDomain: 'bt.com' },
+      { name: 'Allianz', timelineId: 'experience-rga', logoDomain: 'allianz.com' },
+      { name: 'Channel 4', timelineId: 'experience-tangozebra', logoDomain: 'channel4.com' },
+      { name: 'Nokia', timelineId: 'experience-culture-lab', logoDomain: 'nokia.com' },
+    ],
+  },
+  {
+    title: 'Consumer & Automotive',
+    clients: [
+      { name: 'Coca-Cola', timelineId: 'experience-wpp', logoDomain: 'coca-cola.com' },
+      { name: 'Sprite', timelineId: 'experience-wpp', logoDomain: 'sprite.com' },
+      { name: 'Fanta', timelineId: 'experience-wpp', logoDomain: 'fanta.com' },
+      { name: 'Jack & Coke', timelineId: 'experience-wpp', logoDomain: 'jackdaniels.com' },
+      { name: 'Topo Chico', timelineId: 'experience-wpp', logoDomain: 'topochico.com' },
+      { name: 'Vauxhall', timelineId: 'experience-belgrave', logoDomain: 'vauxhall.co.uk' },
+      { name: 'Mitsubishi', timelineId: 'experience-critical-mass', logoDomain: 'mitsubishi-motors.com' },
+      { name: 'Ford', timelineId: 'experience-uniworld', logoDomain: 'ford.com' },
+      { name: 'Burger King', timelineId: 'experience-uniworld', logoDomain: 'burgerking.com' },
+      { name: 'British Airways', timelineId: 'experience-belgrave', logoDomain: 'britishairways.com' },
+    ],
+  },
+];
+
+const getLogoUrl = (domain: string) => `https://logo.clearbit.com/${domain}`;
+
+const ClientChip: React.FC<{ client: ClientEntry }> = ({ client }) => {
+  const [logoError, setLogoError] = React.useState(false);
+
+  return (
+    <a
+      className="client-chip"
+      href={`#${client.timelineId}`}
+      aria-label={`Jump to the ${client.name} work in the experience timeline`}
+    >
+      <span className={`client-logo ${logoError ? 'client-logo--fallback' : ''}`} aria-hidden="true">
+        {logoError ? (
+          client.name.charAt(0)
+        ) : (
+          <Image
+            src={getLogoUrl(client.logoDomain)}
+            alt=""
+            width={40}
+            height={40}
+            sizes="40px"
+            className="client-logo__image"
+            onError={() => setLogoError(true)}
+          />
+        )}
+      </span>
+      <span className="client-name">{client.name}</span>
+    </a>
+  );
+};
 
 const useRevealAnimations = () => {
   useEffect(() => {
@@ -162,7 +250,12 @@ const AboutPage = () => {
                     <li><strong>Skyviews:</strong> Directed app and website enhancements with AI + PostgreSQL integration. Delivered API documentation, testing and security recommendations, and a roadmap for scalability (microservices, GraphQL, CI/CD, 2FA).</li>
                   </ul>
                 </TimelineItem>
-                <TimelineItem date="May 2023 – Nov 2023" title="Senior Project Manager EMEA" company="Craft Worldwide">
+                <TimelineItem
+                  id="experience-craft"
+                  date="May 2023 – Nov 2023"
+                  title="Senior Project Manager EMEA"
+                  company="Craft Worldwide"
+                >
                   <p>
                     Spearheading high-impact initiatives across the global network to drive innovation, optimise operations, reduce costs, and boost efficiencies.
                   </p>
@@ -175,7 +268,12 @@ const AboutPage = () => {
                     <li>Heading business transformation activities including virtual studio, prompt training and workflow automation.</li>
                   </ul>
                 </TimelineItem>
-                <TimelineItem date="Dec 2021 – Oct 2022" title="Senior Project Manager, Marketing &amp; Growth" company="WPP | OpenX">
+                <TimelineItem
+                  id="experience-wpp"
+                  date="Dec 2021 – Oct 2022"
+                  title="Senior Project Manager, Marketing &amp; Growth"
+                  company="WPP | OpenX"
+                >
                   <p>
                     Project managing end to end Global charters integrated &amp; digital for The Coca-Cola Company (TCCC) various IPs on Sprite, Fanta &amp; emerging alcoholic RTD&apos;s Jack &amp; Coke, Lemon Dou, Topo Chico driving integrated creative delivery across WPP owned agencies (Ogilvy, AKQA, David, Grey, Wunderman Thomson, VML Y&amp;R, Havas, Mediacom etc) working in the OpenX agency team format.
                   </p>
@@ -185,7 +283,7 @@ const AboutPage = () => {
                     Worked with 3D, Unreal, Unity, Maya, gaming engines, project planning using ClickUp budgets, briefs, &apos;A Quiet Place&apos; video game trailer, Marvelous Games Rune Factory 5 for game publishers &amp; AAA game studios managing teams consisting of creatives, developers, video editor and 3D artists. Producing Voiceovers with VO artists &amp; client facing.
                   </p>
                 </TimelineItem>
-                <TimelineItem date="Jun 2021 – Oct 2021" title="Senior Project Manager" company="RG/A">
+                <TimelineItem id="experience-rga" date="Jun 2021 – Oct 2021" title="Senior Project Manager" company="RG/A">
                   <p>
                     Allianz project management - RACI, timing plans, UX/UI design, Confluence setup, Figma, Miro, daily stand-ups, budgets &amp; SOWs.
                   </p>
@@ -195,7 +293,7 @@ const AboutPage = () => {
                     I gathered tech and business requirements from potential partners to build an Omnichannel tech stack, including CDP, CRM, CM, etc. The tech stack is for a confidential project at a dominant company, and it evaluates mission-critical information. Further details are unavailable due to an NDA.
                   </p>
                 </TimelineItem>
-                <TimelineItem date="Mar 2020 – Jun 2020" title="Business Analyst/PO" company="Critical Mass">
+                <TimelineItem id="experience-critical-mass" date="Mar 2020 – Jun 2020" title="Business Analyst/PO" company="Critical Mass">
                   <p>
                     For Mitsubishi, I implemented cookie management for GDPR compliance on their EU websites, wrote user stories for a custom Google Tag Manager, and collaborated with third-party solutions. I also worked closely with the Dev and PM teams on two-week sprints in an agile environment.
                   </p>
@@ -216,7 +314,12 @@ const AboutPage = () => {
                     I worked on multiple website designs with IT and eCommerce teams, including American Apparel and other Gildan clothing brands. My responsibilities involved scoping, budgeting, and integrating Oracle JDEdwards on eCommerce platforms and Smarter Commerce CMS. I also managed daily project tasks with Smartsheet and liaised with digital development teams.
                   </p>
                 </TimelineItem>
-                <TimelineItem date="Oct 2014 – 2021" title="Independent Producer/Project Manager" company="Belgrave Digital">
+                <TimelineItem
+                  id="experience-belgrave"
+                  date="Oct 2014 – 2021"
+                  title="Independent Producer/Project Manager"
+                  company="Belgrave Digital"
+                >
                   <p>
                     Integrated producing &amp; project managing along with client facing Dynamic HTML5 rich media banners/eCRM email campaigns for agencies such as Bossa NYC, AMV BBDO, Hogarth WW, BBH, Digitas LBi WilliamsLeaTAG, The Corner London, Freedman International, MRM, Fundamental Media &amp; Wunderman.
                   </p>
@@ -225,22 +328,37 @@ const AboutPage = () => {
                     <li>Website redesign and build for gacaribbean.com in collaboration with fitdigital.co.uk along with a Sitecore Build uk.mixa.com for L&apos;Oreal.</li>
                   </ul>
                 </TimelineItem>
-                <TimelineItem date="Nov 2014 – Jan 2015" title="Senior Project Manager" company="Meri Media">
+                <TimelineItem id="experience-meri" date="Nov 2014 – Jan 2015" title="Senior Project Manager" company="Meri Media">
                   <p>
                     Client facing and launch of a new clothing line from Diesel called D:CODE. Creating CRM and brand identity/Guidelines. Dunhill Luxury Men&apos;s clothing banner Campaign. Generated Scopes of work and timing plans for specific projects along with managing a creative team including art directors, designers/developers and video editors.
                   </p>
                 </TimelineItem>
-                <TimelineItem date="Feb 2014 – Oct 2014" title="Digital Producer" company="Red Bee Media">
+                <TimelineItem
+                  id="experience-red-bee"
+                  date="Feb 2014 – Oct 2014"
+                  title="Digital Producer"
+                  company="Red Bee Media"
+                >
                   <p>
                     Responsive Footer and banner webpage creative for BBC and UKTV&apos;s home page website properties (Doctor Who) which included a playable leaderboard banner game &amp; content. Pitch delivery team, creative concepting along with day-to-day project management duties and managed a small team of designers/developers.
                   </p>
                 </TimelineItem>
-                <TimelineItem date="Nov 2013 – Dec 2013" title="Digital Projects Director" company="Leagas Delaney">
+                <TimelineItem
+                  id="experience-leagas"
+                  date="Nov 2013 – Dec 2013"
+                  title="Digital Projects Director"
+                  company="Leagas Delaney"
+                >
                   <p>
                     I have managed global campaigns like Patek Philippe and worked on rich media banners, iAd iOS mobile creative, and email marketing. I&apos;ve organized creative and design teams, used MediaMind&apos;s ad platform for uploading creatives, and managed outsourcing to third-party vendors. Also handling accounts payable for clients. Feel Unique Facebook app build, Pictet and MSC.
                   </p>
                 </TimelineItem>
-                <TimelineItem date="Apr 2013 – Oct 2013" title="Advertising Product Manager" company="Skype / Microsoft Advertising">
+                <TimelineItem
+                  id="experience-skype"
+                  date="Apr 2013 – Oct 2013"
+                  title="Advertising Product Manager"
+                  company="Skype / Microsoft Advertising"
+                >
                   <p>
                     Global digital solutions provider working with Microsoft and 3rd party agencies across time zones. Offered technical and creative support for web/mobile platforms. Collaborated on ideation, ad proposals, user flows, and project delivery. Provided consulting to clients, sales, and external partners.
                   </p>
@@ -265,12 +383,12 @@ const AboutPage = () => {
                     Cross-branded advertorials on Hearst&apos;s sites, interactive videos and photo shoots for Cosmopolitan and Dorothy Perkins.
                   </p>
                 </TimelineItem>
-                <TimelineItem date="Nov 2011" title="Digital Project Manager" company="Jimmy Choo">
+                <TimelineItem id="experience-jimmy-choo" date="Nov 2011" title="Digital Project Manager" company="Jimmy Choo">
                   <p>
                     Build and design of Jimmy Choo US website and eCommerce content management.
                   </p>
                 </TimelineItem>
-                <TimelineItem date="Jun 2011 – Jul 2011" title="Digital Project Manager" company="Burberry">
+                <TimelineItem id="experience-burberry" date="Jun 2011 – Jul 2011" title="Digital Project Manager" company="Burberry">
                   <p>
                     Implemented a redesign of the world site, Worldstore, (responsive UI) mobile site and iPhone Facebook app. Duties involved organising UX, design and build schedules with 3rd parties involving Creative agencies and IT partners (Capgemini) in an Agile and waterfall process.
                   </p>
@@ -285,7 +403,7 @@ const AboutPage = () => {
                     Clients: Virgin Media, Tropicana, Financial Times B2B, Remember a Charity, Johnson &amp; Johnson, Star Alliance.
                   </p>
                 </TimelineItem>
-                <TimelineItem date="Sep 2009 – Apr 2010" title="Digital Producer" company="Hi-ReS!">
+                <TimelineItem id="experience-hires" date="Sep 2009 – Apr 2010" title="Digital Producer" company="Hi-ReS!">
                   <p>
                     Clients: Dolce &amp; Gabbana multi languages (Procter &amp; Gamble), Jägermeister, Anna Molinari fashion brands, Webby award winner The Economist &quot;Thinking spaces&quot; (AMVBBDO) Starbucks (BBDO NY).
                   </p>
@@ -303,7 +421,12 @@ const AboutPage = () => {
                     Managed the build of a Facebook app for BT that recruited 70,000 users for the world&apos;s biggest online Mexican wave. Also created a speaking clock art installation for Accurist. Worked with Blackberry, eBay, Skype, Remington, Air New Zealand, BT Fon, Capital One, BSkyB, Accurist, and Absolute Radio.
                   </p>
                 </TimelineItem>
-                <TimelineItem date="Nov 2007 – Jan 2008" title="Digital Producer" company="Tangozebra / DoubleClick / Google">
+                <TimelineItem
+                  id="experience-tangozebra"
+                  date="Nov 2007 – Jan 2008"
+                  title="Digital Producer"
+                  company="Tangozebra / DoubleClick / Google"
+                >
                   <p>
                     Clients: Channel 4, Selftrade, Financial Times, Seiko and Microsoft.
                   </p>
@@ -318,12 +441,22 @@ const AboutPage = () => {
                     Clients: NSPCC, Oxfam, Standard Life Bank, Yorkshire Building Society and Weight Watchers.
                   </p>
                 </TimelineItem>
-                <TimelineItem date="Jan 2007 – Mar 2007" title="Creative/Producer" company="Culture Lab, Dallas Texas, USA">
+                <TimelineItem
+                  id="experience-culture-lab"
+                  date="Jan 2007 – Mar 2007"
+                  title="Creative/Producer"
+                  company="Culture Lab, Dallas Texas, USA"
+                >
                   <p>
                     Creative team concepting, strategy, overseeing production and project management. Clients: Nokia and Scion.
                   </p>
                 </TimelineItem>
-                <TimelineItem date="Oct 2005 – Jan 2007" title="Interactive Creative Producer" company="Uniworld Group, New York City, NY, USA">
+                <TimelineItem
+                  id="experience-uniworld"
+                  date="Oct 2005 – Jan 2007"
+                  title="Interactive Creative Producer"
+                  company="Uniworld Group, New York City, NY, USA"
+                >
                   <p>
                     Filmed and created online interactive video content for websites and banners, cross branding for the urban market. Clients: Lincoln, Ford, Burger King, fundraising and online viral events for US President Barack Obama.
                   </p>
@@ -336,39 +469,16 @@ const AboutPage = () => {
           <div className="container">
             <h2>Notable Clients</h2>
             <div className="client-categories">
-              <div className="client-category">
-                <h3>Luxury &amp; Fashion</h3>
-                <div className="client-list">
-                  <span>Jimmy Choo</span>
-                  <span>Burberry</span>
-                  <span>Dolce &amp; Gabbana</span>
-                  <span>Patek Philippe</span>
-                  <span>Diesel</span>
-                  <span>Dunhill</span>
+              {clientCategories.map((category) => (
+                <div className="client-category" key={category.title}>
+                  <h3>{category.title}</h3>
+                  <div className="client-list">
+                    {category.clients.map((client) => (
+                      <ClientChip key={client.name} client={client} />
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="client-category">
-                <h3>Technology &amp; Media</h3>
-                <div className="client-list">
-                  <span>Microsoft/Skype</span>
-                  <span>BBC</span>
-                  <span>UKTV</span>
-                  <span>BT</span>
-                  <span>Mitsubishi</span>
-                  <span>Roli</span>
-                </div>
-              </div>
-              <div className="client-category">
-                <h3>Consumer Goods</h3>
-                <div className="client-list">
-                  <span>Coca-Cola</span>
-                  <span>L&apos;Oréal</span>
-                  <span>Maybelline</span>
-                  <span>Vauxhall</span>
-                  <span>Galaxy</span>
-                  <span>Sainsbury&apos;s</span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>

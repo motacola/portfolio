@@ -5,7 +5,7 @@ import Image from 'next/image';
 import './contact.css';
 import Icon from '@/components/Icon';
 
-const PROFILE_IMAGE = 'https://i.pravatar.cc/300?u=christopher-belgrave';
+const PROFILE_IMAGE = '/profile.jpg';
 
 const ContactPage = () => {
   const [name, setName] = useState('');
