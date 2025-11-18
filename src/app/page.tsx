@@ -46,6 +46,20 @@ const videos = [
     description: "Go inside a German photo shoot for South Pole's Spring/Summer collection. Hand-held B-roll, time-lapse set-ups, and quick designer sound-bites capture the energy of a busy day on set. Directed by Christopher Belgrave; production managed by Sebrina Pitt; post by artkill.com.",
     category: 'bts',
   },
+  {
+    videoId: 'uDeZV5NiKnk',
+    title: 'Vauxhall Crossland X – Product Showcase',
+    client: 'Vauxhall',
+    description: "Dynamic product showcase for the Vauxhall Crossland X, highlighting the vehicle's key features and design elements. Professional automotive production showcasing the crossover's versatility and style. Produced by Christopher Belgrave.",
+    category: 'ad',
+  },
+  {
+    videoId: 'l934XTKC46Q',
+    title: 'Commercial Production Showcase',
+    client: 'Client Project',
+    description: 'Professional commercial production demonstrating creative direction and technical execution. Showcasing expertise in visual storytelling and brand communication. Produced by Christopher Belgrave.',
+    category: 'ad',
+  },
 ];
 
 const filterOptions = [
@@ -70,6 +84,11 @@ const ShowreelPage = () => {
         <div className="container">
           <h1>Showreel</h1>
           <p>A curated collection of advertising and production work</p>
+          <a href="#main" className="scroll-indicator" aria-label="Scroll to content">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 5v14M19 12l-7 7-7-7" />
+            </svg>
+          </a>
         </div>
       </section>
       <section className="filters">

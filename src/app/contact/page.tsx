@@ -5,7 +5,7 @@ import Image from 'next/image';
 import './contact.css';
 import Icon from '@/components/Icon';
 
-const PROFILE_IMAGE = 'https://media.licdn.com/dms/image/v2/D4E35AQESDx-L7JXI8Q/profile-framedphoto-shrink_200_200/B4EZcxZIiPHYAc-/0/1748880361900?e=1753048800&v=beta&t=mWnQcPrPyoB5lnIC3VCl6j1zIX-vNDKeiY7cgLiJFo0';
+const PROFILE_IMAGE = 'https://i.pravatar.cc/300?u=christopher-belgrave';
 
 const ContactPage = () => {
   const [name, setName] = useState('');
