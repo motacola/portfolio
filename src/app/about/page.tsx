@@ -12,7 +12,7 @@ const REVEAL_SELECTOR = '.skill-category, .timeline-item, .client-category, .ach
 type ClientEntry = {
   name: string;
   timelineId: string;
-  logoDomain: string;
+  logoSrc: string;
 };
 
 type ClientCategory = {
@@ -24,71 +24,59 @@ const clientCategories: ClientCategory[] = [
   {
     title: 'Luxury & Beauty',
     clients: [
-      { name: "L'Oréal", timelineId: 'experience-craft', logoDomain: 'loreal.com' },
-      { name: 'Maybelline', timelineId: 'experience-craft', logoDomain: 'maybelline.com' },
-      { name: 'Dolce & Gabbana', timelineId: 'experience-hires', logoDomain: 'dolcegabbana.com' },
-      { name: 'Burberry', timelineId: 'experience-burberry', logoDomain: 'burberry.com' },
-      { name: 'Jimmy Choo', timelineId: 'experience-jimmy-choo', logoDomain: 'jimmychoo.com' },
-      { name: 'Diesel', timelineId: 'experience-meri', logoDomain: 'diesel.com' },
-      { name: 'Dunhill', timelineId: 'experience-meri', logoDomain: 'dunhill.com' },
-      { name: 'Patek Philippe', timelineId: 'experience-leagas', logoDomain: 'patek.com' },
+      { name: "L'Oréal", timelineId: 'experience-craft', logoSrc: '/client-logos/loreal-com.png' },
+      { name: 'Maybelline', timelineId: 'experience-craft', logoSrc: '/client-logos/maybelline-com.png' },
+      { name: 'Dolce & Gabbana', timelineId: 'experience-hires', logoSrc: '/client-logos/dolcegabbana-com.png' },
+      { name: 'Burberry', timelineId: 'experience-burberry', logoSrc: '/client-logos/burberry-com.png' },
+      { name: 'Jimmy Choo', timelineId: 'experience-jimmy-choo', logoSrc: '/client-logos/jimmychoo-com.png' },
+      { name: 'Diesel', timelineId: 'experience-meri', logoSrc: '/client-logos/diesel-com.png' },
+      { name: 'Dunhill', timelineId: 'experience-meri', logoSrc: '/client-logos/dunhill-com.png' },
+      { name: 'Patek Philippe', timelineId: 'experience-leagas', logoSrc: '/client-logos/patek-com.png' },
     ],
   },
   {
     title: 'Technology & Media',
     clients: [
-      { name: 'Microsoft', timelineId: 'experience-skype', logoDomain: 'microsoft.com' },
-      { name: 'Skype', timelineId: 'experience-skype', logoDomain: 'skype.com' },
-      { name: 'Apple', timelineId: 'experience-belgrave', logoDomain: 'apple.com' },
-      { name: 'BBC', timelineId: 'experience-red-bee', logoDomain: 'bbc.com' },
-      { name: 'UKTV', timelineId: 'experience-red-bee', logoDomain: 'uktv.co.uk' },
-      { name: 'BT', timelineId: 'experience-belgrave', logoDomain: 'bt.com' },
-      { name: 'Allianz', timelineId: 'experience-rga', logoDomain: 'allianz.com' },
-      { name: 'Channel 4', timelineId: 'experience-tangozebra', logoDomain: 'channel4.com' },
-      { name: 'Nokia', timelineId: 'experience-culture-lab', logoDomain: 'nokia.com' },
+      { name: 'Microsoft', timelineId: 'experience-skype', logoSrc: '/client-logos/microsoft-com.png' },
+      { name: 'Skype', timelineId: 'experience-skype', logoSrc: '/client-logos/skype-com.png' },
+      { name: 'Apple', timelineId: 'experience-belgrave', logoSrc: '/client-logos/apple-com.png' },
+      { name: 'BBC', timelineId: 'experience-red-bee', logoSrc: '/client-logos/bbc-com.png' },
+      { name: 'UKTV', timelineId: 'experience-red-bee', logoSrc: '/client-logos/uktv-co-uk.png' },
+      { name: 'BT', timelineId: 'experience-belgrave', logoSrc: '/client-logos/bt-com.png' },
+      { name: 'Allianz', timelineId: 'experience-rga', logoSrc: '/client-logos/allianz-com.png' },
+      { name: 'Channel 4', timelineId: 'experience-tangozebra', logoSrc: '/client-logos/channel4-com.png' },
+      { name: 'Nokia', timelineId: 'experience-culture-lab', logoSrc: '/client-logos/nokia-com.png' },
     ],
   },
   {
     title: 'Consumer & Automotive',
     clients: [
-      { name: 'Coca-Cola', timelineId: 'experience-wpp', logoDomain: 'coca-cola.com' },
-      { name: 'Sprite', timelineId: 'experience-wpp', logoDomain: 'sprite.com' },
-      { name: 'Fanta', timelineId: 'experience-wpp', logoDomain: 'fanta.com' },
-      { name: 'Jack & Coke', timelineId: 'experience-wpp', logoDomain: 'jackdaniels.com' },
-      { name: 'Topo Chico', timelineId: 'experience-wpp', logoDomain: 'topochico.com' },
-      { name: 'Vauxhall', timelineId: 'experience-belgrave', logoDomain: 'vauxhall.co.uk' },
-      { name: 'Mitsubishi', timelineId: 'experience-critical-mass', logoDomain: 'mitsubishi-motors.com' },
-      { name: 'Ford', timelineId: 'experience-uniworld', logoDomain: 'ford.com' },
-      { name: 'Burger King', timelineId: 'experience-uniworld', logoDomain: 'burgerking.com' },
-      { name: 'British Airways', timelineId: 'experience-belgrave', logoDomain: 'britishairways.com' },
+      { name: 'Coca-Cola', timelineId: 'experience-wpp', logoSrc: '/client-logos/coca-cola-com.png' },
+      { name: 'Sprite', timelineId: 'experience-wpp', logoSrc: '/client-logos/sprite-com.png' },
+      { name: 'Fanta', timelineId: 'experience-wpp', logoSrc: '/client-logos/fanta-com.png' },
+      { name: 'Jack & Coke', timelineId: 'experience-wpp', logoSrc: '/client-logos/jackdaniels-com.png' },
+      { name: 'Topo Chico', timelineId: 'experience-wpp', logoSrc: '/client-logos/topochico-com.png' },
+      { name: 'Vauxhall', timelineId: 'experience-belgrave', logoSrc: '/client-logos/vauxhall-co-uk.png' },
+      { name: 'Mitsubishi', timelineId: 'experience-critical-mass', logoSrc: '/client-logos/mitsubishi-motors-com.png' },
+      { name: 'Ford', timelineId: 'experience-uniworld', logoSrc: '/client-logos/ford-com.png' },
+      { name: 'Burger King', timelineId: 'experience-uniworld', logoSrc: '/client-logos/burgerking-com.png' },
+      { name: 'British Airways', timelineId: 'experience-belgrave', logoSrc: '/client-logos/britishairways-com.png' },
     ],
   },
 ];
 
-const getLogoUrl = (domain: string) => `https://logo.clearbit.com/${domain}`;
-
 const ClientChip: React.FC<{ client: ClientEntry }> = ({ client }) => {
-  const [logoError, setLogoError] = React.useState(false);
-
   return (
     <a
       className="client-chip"
       href={`#${client.timelineId}`}
       aria-label={`Jump to the ${client.name} work in the experience timeline`}
     >
-      <span className={`client-logo ${logoError ? 'client-logo--fallback' : ''}`} aria-hidden="true">
-        {logoError ? (
-          client.name.charAt(0)
+      <span className="client-logo" aria-hidden="true">
+        {client.logoSrc ? (
+          <Image src={client.logoSrc} alt="" width={40} height={40} sizes="40px" className="client-logo__image" />
         ) : (
-          <Image
-            src={getLogoUrl(client.logoDomain)}
-            alt=""
-            width={40}
-            height={40}
-            sizes="40px"
-            className="client-logo__image"
-            onError={() => setLogoError(true)}
-          />
+          <span className="client-logo--fallback">{client.name.charAt(0)}</span>
         )}
       </span>
       <span className="client-name">{client.name}</span>
