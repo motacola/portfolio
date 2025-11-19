@@ -5,44 +5,43 @@ import Image from 'next/image';
 
 const getLogoUrl = (domain: string) => `https://logo.clearbit.com/${domain}`;
 
-const companyLogoDomains: Record<string, string> = {
-  'chromaverse ltd': 'chromaverse.ai',
-  'craft worldwide': 'craftww.com',
-  'wpp | openx': 'wpp.com',
-  'trailer farm': 'thetrailerfarm.com',
-  'rg/a': 'rga.com',
-  'sullivan and stanley': 'sullivanstanley.com',
-  'critical mass': 'criticalmass.com',
-  'sennep': 'sennep.com',
-  'gildan': 'gildan.com',
-  'belgrave digital': 'belgravedigital.com',
-  'meri media': 'merimedia.com',
-  'red bee media': 'redbeemedia.com',
-  'leagas delaney': 'leagasdelaney.com',
-  'skype / microsoft advertising': 'skype.com',
-  'ipc media - time inc': 'timeinc.com',
-  'spring creative': 'springcreative.com',
-  'adam&eveddb london': 'adamandeveddb.com',
-  'hearst magazines digital media london': 'hearst.com',
-  'jimmy choo': 'jimmychoo.com',
-  'burberry': 'burberry.com',
-  'ogilvy one': 'ogilvy.com',
-  'ddb london': 'ddb.com',
-  'hi-res!': 'hi-res.net',
-  'rehab studio': 'wearerehab.com',
-  'kbs albion london': 'albion.co',
-  'tangozebra / doubleclick / google': 'google.com',
-  'saint rkcr/y&r': 'yr.com',
-  'dna avenue a | razorfish': 'razorfish.com',
-  'culture lab, dallas texas, usa': 'culturelab.com',
-  'uniworld group, new york city, ny, usa': 'uwginc.com'
+const companyLogos: Record<string, { src: string }> = {
+  'chromaverse ltd': { src: '/company-logos/chromaverse.svg' },
+  'craft worldwide': { src: getLogoUrl('craftww.com') },
+  'wpp | openx': { src: getLogoUrl('wpp.com') },
+  'trailer farm': { src: getLogoUrl('thetrailerfarm.com') },
+  'rg/a': { src: getLogoUrl('rga.com') },
+  'sullivan and stanley': { src: getLogoUrl('sullivanstanley.com') },
+  'critical mass': { src: getLogoUrl('criticalmass.com') },
+  'sennep': { src: getLogoUrl('sennep.com') },
+  'gildan': { src: getLogoUrl('gildan.com') },
+  'belgrave digital': { src: '/company-logos/belgrave-digital.svg' },
+  'meri media': { src: getLogoUrl('merimedia.com') },
+  'red bee media': { src: getLogoUrl('redbeemedia.com') },
+  'leagas delaney': { src: getLogoUrl('leagasdelaney.com') },
+  'skype / microsoft advertising': { src: getLogoUrl('skype.com') },
+  'ipc media - time inc': { src: '/company-logos/time-inc.svg' },
+  'spring creative': { src: getLogoUrl('springcreative.com') },
+  'adam&eveddb london': { src: getLogoUrl('adamandeveddb.com') },
+  'hearst magazines digital media london': { src: getLogoUrl('hearst.com') },
+  'jimmy choo': { src: getLogoUrl('jimmychoo.com') },
+  'burberry': { src: getLogoUrl('burberry.com') },
+  'ogilvy one': { src: getLogoUrl('ogilvy.com') },
+  'ddb london': { src: getLogoUrl('ddb.com') },
+  'hi-res!': { src: getLogoUrl('hi-res.net') },
+  'rehab studio': { src: '/company-logos/rehab-studio.svg' },
+  'kbs albion london': { src: getLogoUrl('albion.co') },
+  'tangozebra / doubleclick / google': { src: getLogoUrl('google.com') },
+  'saint rkcr/y&r': { src: getLogoUrl('yr.com') },
+  'dna avenue a | razorfish': { src: getLogoUrl('razorfish.com') },
+  'culture lab, dallas texas, usa': { src: getLogoUrl('culturelab.com') },
+  'uniworld group, new york city, ny, usa': { src: getLogoUrl('uwginc.com') }
 };
 
 const getCompanyLogoUrl = (company?: string) => {
   if (!company) return null;
   const key = company.toLowerCase().trim();
-  const domain = companyLogoDomains[key];
-  return domain ? getLogoUrl(domain) : null;
+  return companyLogos[key]?.src ?? null;
 };
 
 interface TimelineItemProps {
