@@ -1,0 +1,5 @@
+<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+  <rect width="80" height="80" rx="18" fill="#ffffff" stroke="#003399" stroke-width="4" />
+  <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-weight="700" font-size="26" fill="#003399">Time</text>
+  <text x="50%" y="68%" dominant-baseline="middle" text-anchor="middle" font-family="'Plus Jakarta Sans', Helvetica, Arial, sans-serif" font-weight="600" font-size="13" fill="#000000">Inc.</text>
+</svg>

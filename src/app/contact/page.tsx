@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import './contact.css';
+import Icon from '@/components/Icon';
+
+const PROFILE_IMAGE = '/profile.jpg';
 
 const ContactPage = () => {
   const [name, setName] = useState('');
@@ -10,29 +13,39 @@ const ContactPage = () => {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, subject, message }),
-    });
+    setIsSubmitting(true);
+    setStatus('Sending…');
 
-    if (response.ok) {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
       setStatus('Thank you for your message!');
-    } else {
-      setStatus('Sorry, something went wrong.');
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
+    } catch (error) {
+      console.error('Contact submission failed', error);
+      setStatus('Sorry, something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // Reset form fields
-    setName('');
-    setEmail('');
-    setSubject('');
-    setMessage('');
   };
 
   return (
@@ -50,12 +63,12 @@ const ContactPage = () => {
               <div className="contact-info">
                 <div className="profile-image-container">
                   <Image
-                    src="https://media.licdn.com/dms/image/v2/D4E35AQESDx-L7JXI8Q/profile-framedphoto-shrink_200_200/B4EZcxZIiPHYAc-/0/1748880361900?e=1753048800&v=beta&t=mWnQcPrPyoB5lnIC3VCl6j1zIX-vNDKeiY7cgLiJFo0"
+                    src={PROFILE_IMAGE}
                     alt="Christopher Belgrave, Senior Project Manager"
                     className="profile-image"
                     width={180}
                     height={180}
-                  unoptimized
+                    priority
                   />
                 </div>
                 <h2>Get In Touch</h2>
@@ -63,8 +76,8 @@ const ContactPage = () => {
                   I&apos;m always interested in hearing about new projects and opportunities. Whether you have a question about my work or want to discuss a potential collaboration, feel free to reach out.
                 </p>
                 <div className="info-item">
-                  <div className="info-icon">
-                    <i className="fas fa-envelope" aria-hidden="true"></i>
+                  <div className="info-icon" aria-hidden="true">
+                    <Icon name="email" className="info-icon__symbol" />
                   </div>
                   <div className="info-content">
                     <h3>Email</h3>
@@ -74,8 +87,8 @@ const ContactPage = () => {
                   </div>
                 </div>
                 <div className="info-item">
-                  <div className="info-icon">
-                    <i className="fas fa-phone" aria-hidden="true"></i>
+                  <div className="info-icon" aria-hidden="true">
+                    <Icon name="phone" className="info-icon__symbol" />
                   </div>
                   <div className="info-content">
                     <h3>Phone</h3>
@@ -85,8 +98,8 @@ const ContactPage = () => {
                   </div>
                 </div>
                 <div className="info-item">
-                  <div className="info-icon">
-                    <i className="fas fa-map-marker-alt" aria-hidden="true"></i>
+                  <div className="info-icon" aria-hidden="true">
+                    <Icon name="location" className="info-icon__symbol" />
                   </div>
                   <div className="info-content">
                     <h3>Location</h3>
@@ -94,8 +107,8 @@ const ContactPage = () => {
                   </div>
                 </div>
                 <div className="info-item">
-                  <div className="info-icon">
-                    <i className="fab fa-linkedin" aria-hidden="true"></i>
+                  <div className="info-icon" aria-hidden="true">
+                    <Icon name="linkedin" className="info-icon__symbol" />
                   </div>
                   <div className="info-content">
                     <h3>LinkedIn</h3>
@@ -108,7 +121,7 @@ const ContactPage = () => {
                 </div>
                 <div className="social-links-large">
                   <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener" className="social-link" aria-label="LinkedIn Profile">
-                    <i className="fab fa-linkedin" aria-hidden="true"></i>
+                    <Icon name="linkedin" className="info-icon__symbol" />
                   </a>
                 </div>
               </div>
@@ -161,10 +174,14 @@ const ContactPage = () => {
                       onChange={(e) => setMessage(e.target.value)}
                     ></textarea>
                   </div>
-                  <button type="submit" className="btn primary-btn form-submit-btn">
-                    Send Message
+                  <button type="submit" className="btn primary-btn form-submit-btn" disabled={isSubmitting}>
+                    {isSubmitting ? 'Sending…' : 'Send Message'}
                   </button>
-                  {status && <p className="form-status">{status}</p>}
+                  {status && (
+                    <p className="form-status" role="status" aria-live="polite">
+                      {status}
+                    </p>
+                  )}
                 </form>
               </div>
             </div>

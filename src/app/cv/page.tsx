@@ -3,7 +3,7 @@ import './cv-pdf.css';
 
 const CVPage = () => {
   return (
-    <div className="cv-pdf">
+    <div className="cv-pdf" id="main">
       <a href="#main-cv-content" className="skip-to-content">
         Skip to Main Content
       </a>
