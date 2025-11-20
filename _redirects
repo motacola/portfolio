@@ -1,0 +1,13 @@
+# Netlify Redirects for Portfolio Website
+
+# Clean URLs - redirect /showreel to index.html
+/showreel           /index.html         200
+/showreel/          /index.html         200
+
+# Clean URLs - redirect /about to about.html
+/about              /about.html         200
+/about/             /about.html         200
+
+# Fallback for 404
+/*                  /index.html         404
+
