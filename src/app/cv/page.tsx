@@ -12,7 +12,7 @@ const CVPage = () => {
         <p>Senior Project Manager / Producer in Advertising</p>
         <p>
           London, United Kingdom | <a href="mailto:chrisbelgrave@gmail.com">chrisbelgrave@gmail.com</a> |{' '}
-          <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank">
+          <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener noreferrer">
             LinkedIn
           </a>
         </p>

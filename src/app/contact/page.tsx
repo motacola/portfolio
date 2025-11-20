@@ -14,6 +14,12 @@ const ContactPage = () => {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [botField, setBotField] = useState('');
+
+  const encode = (data: Record<string, string>) =>
+    Object.keys(data)
+      .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .join('&');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,12 +29,19 @@ const ContactPage = () => {
     setStatus('Sending…');
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({ name, email, subject, message }),
+        body: encode({
+          'form-name': 'contact',
+          name,
+          email,
+          subject,
+          message,
+          'bot-field': botField,
+        }),
       });
 
       if (!response.ok) {
@@ -40,6 +53,7 @@ const ContactPage = () => {
       setEmail('');
       setSubject('');
       setMessage('');
+      setBotField('');
     } catch (error) {
       console.error('Contact submission failed', error);
       setStatus('Sorry, something went wrong. Please try again.');
@@ -113,21 +127,41 @@ const ContactPage = () => {
                   <div className="info-content">
                     <h3>LinkedIn</h3>
                     <p>
-                      <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener">
+                      <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener noreferrer">
                         linkedin.com/in/chrisbelgrave
                       </a>
                     </p>
                   </div>
                 </div>
                 <div className="social-links-large">
-                  <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener" className="social-link" aria-label="LinkedIn Profile">
+                  <a
+                    href="https://www.linkedin.com/in/chrisbelgrave/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-link"
+                    aria-label="LinkedIn Profile"
+                  >
                     <Icon name="linkedin" className="info-icon__symbol" />
                   </a>
                 </div>
               </div>
               <div className="contact-form">
                 <h2>Send Me a Message</h2>
-                <form id="contactForm" noValidate onSubmit={handleSubmit}>
+                <form
+                  id="contactForm"
+                  name="contact"
+                  data-netlify="true"
+                  data-netlify-honeypot="bot-field"
+                  noValidate
+                  onSubmit={handleSubmit}
+                >
+                  <input type="hidden" name="form-name" value="contact" />
+                  <p hidden>
+                    <label>
+                      Don&apos;t fill this out:{' '}
+                      <input name="bot-field" value={botField} onChange={(e) => setBotField(e.target.value)} />
+                    </label>
+                  </p>
                   <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <input
