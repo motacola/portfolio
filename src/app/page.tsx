@@ -81,21 +81,19 @@ const ShowreelPage = () => {
       ? 'Showing all featured work'
       : `Showing ${filterOptions.find((option) => option.value === filter)?.label ?? 'selected projects'}`;
 
+  const handleFilterChange = (value: string) => {
+    setActiveVideoId(null);
+    setHasFiltered(true);
+    setFilter(value);
+  };
+
   useEffect(() => {
     if (!hasFiltered) return;
-    if (activeVideoId) {
-      setActiveVideoId(null);
-    }
     const target = mainRef.current;
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, [filter, hasFiltered, activeVideoId]);
-
-  const handleFilterChange = (value: string) => {
-    setHasFiltered(true);
-    setFilter(value);
-  };
+  }, [filter, hasFiltered]);
 
   return (
     <>
