@@ -1,0 +1,6 @@
+<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+  <rect width="80" height="80" rx="18" fill="#0d1b2a" />
+  <rect x="6" y="6" width="68" height="68" rx="14" fill="#1b3a5d" />
+  <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', 'Plus Jakarta Sans', Helvetica, Arial, sans-serif" font-weight="700" font-size="26" fill="#ffffff">BEL</text>
+  <text x="50%" y="70%" dominant-baseline="middle" text-anchor="middle" font-family="'Plus Jakarta Sans', Helvetica, Arial, sans-serif" font-weight="500" font-size="12" fill="#4ecdc4" letter-spacing="4">DIGITAL</text>
+</svg>

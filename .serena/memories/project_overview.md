@@ -1,0 +1,6 @@
+# Project Overview
+- Purpose: modernized portfolio/showreel site for Christopher Belgrave highlighting video work, biography, and contact information.
+- Stack: Next.js 15 (App Router) with React 19, TypeScript, Tailwind v4 (via `@import "tailwindcss"` in `globals.css`), and custom CSS. Fonts are loaded via `next/font` (Inter + Playfair).
+- Structure: `src/app` contains routed pages (`page.tsx` showreel, `contact`, `about`, `cv`, API routes); `src/components` hosts shared UI (Navbar, Footer, Layout, Timeline, VideoCard, Icon); `public/` stores static assets such as `profile.jpg` and icon sprite; legacy static assets remain under `css/`, `js/`, and `shared/` but Next source of truth lives in `src/`.
+- Layout: `src/app/layout.tsx` wraps pages with the `Layout` component so Navbar/Footer surround every route; `globals.css` defines design tokens, grid system, and interactive styles for hero, video grid, etc.
+- Content: the showreel page renders a filterable `VideoCard` grid; contact page implements a form that posts to `/api/contact` and imports scoped CSS (`contact.css`).
