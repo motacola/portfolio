@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import VideoCard from '@/components/VideoCard';
 
 const videos = [
@@ -71,12 +71,31 @@ const filterOptions = [
 
 const ShowreelPage = () => {
   const [filter, setFilter] = useState('all');
+  const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
+  const [hasFiltered, setHasFiltered] = useState(false);
+  const mainRef = useRef<HTMLElement | null>(null);
 
   const filteredVideos = filter === 'all' ? videos : videos.filter((video) => video.category === filter);
   const filterStatus =
     filter === 'all'
       ? 'Showing all featured work'
       : `Showing ${filterOptions.find((option) => option.value === filter)?.label ?? 'selected projects'}`;
+
+  useEffect(() => {
+    if (!hasFiltered) return;
+    if (activeVideoId) {
+      setActiveVideoId(null);
+    }
+    const target = mainRef.current;
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [filter, hasFiltered, activeVideoId]);
+
+  const handleFilterChange = (value: string) => {
+    setHasFiltered(true);
+    setFilter(value);
+  };
 
   return (
     <>
@@ -100,7 +119,7 @@ const ShowreelPage = () => {
                 type="button"
                 className={`filter-btn ${filter === option.value ? 'active' : ''}`}
                 aria-pressed={filter === option.value}
-                onClick={() => setFilter(option.value)}
+                onClick={() => handleFilterChange(option.value)}
               >
                 {option.label}
               </button>
@@ -111,11 +130,16 @@ const ShowreelPage = () => {
           </p>
         </div>
       </section>
-      <main className="showreel" id="main">
+      <main className="showreel" id="main" ref={mainRef}>
         <div className="container">
           <div className="video-grid">
             {filteredVideos.map((video) => (
-              <VideoCard key={video.videoId} {...video} />
+              <VideoCard
+                key={video.videoId}
+                {...video}
+                isActive={activeVideoId === video.videoId}
+                onActivate={(id) => setActiveVideoId((prev) => (prev === id ? null : id))}
+              />
             ))}
           </div>
         </div>

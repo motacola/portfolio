@@ -9,19 +9,21 @@ interface VideoCardProps {
   client: string;
   description: string;
   category: string;
+  isActive: boolean;
+  onActivate: (videoId: string) => void;
 }
 
-const VideoCard: React.FC<VideoCardProps> = ({ videoId, title, client, description, category }) => {
-  const [isPlaying, setIsPlaying] = React.useState(false);
-
-  const handleActivate = () => {
-    setIsPlaying(true);
+const VideoCard: React.FC<VideoCardProps> = ({ videoId, title, client, description, category, isActive, onActivate }) => {
+  const categoryLabels: Record<string, string> = {
+    ad: 'Ad Spot',
+    trailer: 'Trailer',
+    bts: 'Behind the Scenes',
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      handleActivate();
+      onActivate(videoId);
     }
   };
 
@@ -32,16 +34,19 @@ const VideoCard: React.FC<VideoCardProps> = ({ videoId, title, client, descripti
         role="button"
         tabIndex={0}
         aria-label={`Play ${title} video`}
-        onClick={handleActivate}
+        onClick={() => onActivate(videoId)}
         onKeyDown={handleKeyDown}
       >
-        {isPlaying ? (
+        {isActive ? (
           <iframe
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0&playsinline=1`}
             title={`${title} video player`}
             frameBorder="0"
-            allow="autoplay; encrypted-media"
+            allow="autoplay; encrypted-media; picture-in-picture"
             allowFullScreen
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            aria-label={`${title} video player`}
           ></iframe>
         ) : (
           <>
@@ -63,6 +68,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ videoId, title, client, descripti
         )}
       </div>
       <div className="video-info">
+        <span className="video-tag">{categoryLabels[category] ?? 'Project'}</span>
         <h3>{title}</h3>
         <p className="client">{client}</p>
         <p className="description">{description}</p>
