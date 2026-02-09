@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -10,8 +10,21 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((open) => !open);
   };
+
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
+  const handleExperienceClick = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
+      event.preventDefault();
+      router.push('/about#experience');
+      closeMenu();
+    },
+    [closeMenu, router],
+  );
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -20,39 +33,60 @@ const Navbar = () => {
   return (
     <header>
       <div className="container">
-        <nav>
+        <nav aria-label="Primary">
           <div className="logo">
             <h1>Christopher Belgrave</h1>
           </div>
-          <div className={`nav-toggle ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
+          <button
+            type="button"
+            className={`nav-toggle ${isMenuOpen ? 'active' : ''}`}
+            onClick={toggleMenu}
+            aria-expanded={isMenuOpen}
+            aria-controls="primary-navigation"
+            aria-label="Toggle navigation menu"
+          >
             <span></span>
             <span></span>
             <span></span>
-          </div>
-          <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`} role="navigation" aria-label="Main navigation">
+          </button>
+          <ul id="primary-navigation" className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
             <li>
-              <Link href="/" className={pathname === '/' ? 'active' : ''}>
+              <Link
+                href="/"
+                className={pathname === '/' ? 'active' : ''}
+                aria-current={pathname === '/' ? 'page' : undefined}
+                onClick={closeMenu}
+              >
                 Showreel
               </Link>
             </li>
             <li>
-              <Link href="/about" className={pathname === '/about' ? 'active' : ''}>
+              <Link
+                href="/about"
+                className={pathname === '/about' ? 'active' : ''}
+                aria-current={pathname === '/about' ? 'page' : undefined}
+                onClick={closeMenu}
+              >
                 About
               </Link>
             </li>
             <li>
               <a
                 href="/about.html#experience"
-                onClick={(event) => {
-                  event.preventDefault();
-                  router.push('/about#experience');
-                }}
+                className={pathname === '/about' ? 'active' : ''}
+                aria-current={pathname === '/about' ? 'page' : undefined}
+                onClick={handleExperienceClick}
               >
                 Experience
               </a>
             </li>
             <li>
-              <Link href="/contact" className={pathname === '/contact' ? 'active' : ''}>
+              <Link
+                href="/contact"
+                className={pathname === '/contact' ? 'active' : ''}
+                aria-current={pathname === '/contact' ? 'page' : undefined}
+                onClick={closeMenu}
+              >
                 Contact
               </Link>
             </li>

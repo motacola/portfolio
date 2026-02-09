@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import './contact.css';
@@ -14,17 +14,31 @@ const ContactPage = () => {
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [botField, setBotField] = useState('');
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const formDisabled = useMemo(
-    () => !name.trim() || !email.trim() || !subject.trim() || !message.trim(),
-    [name, email, subject, message],
-  );
+  const formDisabled =
+    isSubmitting || !name.trim() || !email.trim() || !subject.trim() || !message.trim();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const form = event.currentTarget;
+    if (botField.trim()) {
+      form.reset();
+      setBotField('');
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
+      setStatus('success');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus('idle');
+
     const formName = form.getAttribute('name') ?? 'contact';
     const payload = encode({
       'form-name': formName,
@@ -32,10 +46,11 @@ const ContactPage = () => {
       email,
       subject,
       message,
+      'bot-field': botField,
     });
 
     try {
-      const action = form.action || '/';
+      const action = form.getAttribute('action') || '/';
 
       const response = await fetch(action, {
         method: 'POST',
@@ -54,9 +69,12 @@ const ContactPage = () => {
       setEmail('');
       setSubject('');
       setMessage('');
+      setBotField('');
     } catch (error) {
       console.error('Error submitting contact form', error);
       setStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -149,6 +167,8 @@ const ContactPage = () => {
                   id="contactForm"
                   name="contact"
                   method="POST"
+                  action="/"
+                  acceptCharset="UTF-8"
                   data-netlify="true"
                   data-netlify-honeypot="bot-field"
                   noValidate
@@ -158,7 +178,12 @@ const ContactPage = () => {
                   <p className="visually-hidden">
                     <label>
                       Don&apos;t fill this out if you&apos;re human:
-                      <input name="bot-field" autoComplete="off" onChange={() => {}} />
+                      <input
+                        name="bot-field"
+                        autoComplete="off"
+                        value={botField}
+                        onChange={(event) => setBotField(event.target.value)}
+                      />
                     </label>
                   </p>
                   <div className="form-group">
@@ -207,8 +232,13 @@ const ContactPage = () => {
                       onChange={(e) => setMessage(e.target.value)}
                     ></textarea>
                   </div>
-                  <button type="submit" className="btn primary-btn form-submit-btn" disabled={formDisabled}>
-                    Send Message
+                  <button
+                    type="submit"
+                    className="btn primary-btn form-submit-btn"
+                    disabled={formDisabled}
+                    aria-busy={isSubmitting}
+                  >
+                    {isSubmitting ? 'Sending…' : 'Send Message'}
                   </button>
                   <p className="form-status" role="status" aria-live="polite">
                     {status === 'success' && 'Thank you for your message!'}
