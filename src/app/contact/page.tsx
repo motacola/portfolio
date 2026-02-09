@@ -35,7 +35,9 @@ const ContactPage = () => {
     });
 
     try {
-      const response = await fetch('/', {
+      const action = form.action || '/';
+
+      const response = await fetch(action, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -123,14 +125,20 @@ const ContactPage = () => {
                   <div className="info-content">
                     <h3>LinkedIn</h3>
                     <p>
-                      <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener">
+                      <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener noreferrer">
                         linkedin.com/in/chrisbelgrave
                       </a>
                     </p>
                   </div>
                 </div>
                 <div className="social-links-large">
-                  <a href="https://www.linkedin.com/in/chrisbelgrave/" target="_blank" rel="noopener" className="social-link" aria-label="LinkedIn Profile">
+                  <a
+                    href="https://www.linkedin.com/in/chrisbelgrave/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-link"
+                    aria-label="LinkedIn Profile"
+                  >
                     <i className="fab fa-linkedin" aria-hidden="true"></i>
                   </a>
                 </div>
@@ -140,8 +148,9 @@ const ContactPage = () => {
                 <form
                   id="contactForm"
                   name="contact"
+                  method="POST"
                   data-netlify="true"
-                  netlify-honeypot="bot-field"
+                  data-netlify-honeypot="bot-field"
                   noValidate
                   onSubmit={handleSubmit}
                 >
