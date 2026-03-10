@@ -112,6 +112,36 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Hide cards with broken/unavailable YouTube thumbnails
+    const sanitizeVideoCards = () => {
+        const cards = document.querySelectorAll('.video-item');
+
+        cards.forEach(card => {
+            const iframe = card.querySelector('iframe');
+            if (!iframe) return;
+
+            const src = iframe.dataset.src || iframe.src || '';
+            const match = src.match(/embed\/([a-zA-Z0-9_-]{6,})/);
+            if (!match) return;
+
+            const videoId = match[1];
+            const probe = new Image();
+
+            probe.onload = () => {
+                // YouTube's placeholder/missing thumbs are very small
+                if (probe.naturalWidth < 120) {
+                    card.style.display = 'none';
+                }
+            };
+
+            probe.onerror = () => {
+                card.style.display = 'none';
+            };
+
+            probe.src = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+        });
+    };
+
     // Lazy load YouTube videos for better performance
     const lazyLoadVideos = () => {
         const videoContainers = document.querySelectorAll('.video-container');
@@ -159,7 +189,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    // Initialize lazy loading
+    // Clean up broken cards, then initialize lazy loading
+    sanitizeVideoCards();
     lazyLoadVideos();
     
     // Contact form handling
